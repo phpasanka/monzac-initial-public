@@ -2,41 +2,32 @@
 import React, { Component, useContext, useEffect } from "react";
 import { Row, Col, Input, Button } from "reactstrap";
 import ArticleEditor from "./articleEditor";
-import { ArticleContext } from "../context/articleContext";
+import { ArticleContext } from "../context/ArticleContext";
 
 const colStyle = {
   paddingTop: 2,
   paddingLeft: 3,
   paddingRight: 3,
 };
-//const { monzacState, setMonzacState } = useContext(ArticleContext);
-
-//class NewArticle extends Component {
 
 const NewArticle = () => {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     catList: [],
-  //   };
-  // }
-  const { monzacState, setMonzacState } = useContext(ArticleContext);
-
+  const [monzacState, setMonzacState] = useContext(ArticleContext);
   const styles = {
     boxShadow: "none",
   };
   useEffect(() => {
     getCategoryList();
   });
-  // componentDidMount() {
-  //
-  // }
   const getCategoryList = () => {
     fetch("/get/category")
       .then((res) => res.json())
       .then((res) => {
         let catList = res.map((r) => r.name);
-        setMonzacState((previousState) => [...previousState, catList]);
+        monzacState.forEach((element, index) => {
+          if (element.name === "catList") {
+            monzacState[index].value = catList;
+          }
+        });
       });
   };
 
@@ -57,7 +48,6 @@ const NewArticle = () => {
       .then((res) => {});
   };
 
-  //render() {
   return (
     <Row className="row">
       <Col xs="6" style={colStyle}>
@@ -65,9 +55,12 @@ const NewArticle = () => {
       </Col>
       <Col xs="6" style={colStyle}>
         <Input type="select" style={styles}>
-          {monzacState.catList.map((opt, i) => (
-            <option key={i}>{opt}</option>
-          ))}
+          {monzacState.find((ele) => ele.name === "catList").value.length === 0}
+          {monzacState
+            .find((ele) => ele.name === "catList")
+            .value.map((opt, i) => (
+              <option key={i}>{opt}</option>
+            ))}
         </Input>
       </Col>
       <Col xs="12" style={colStyle}>
@@ -83,7 +76,6 @@ const NewArticle = () => {
       </Col>
     </Row>
   );
-  // }
 };
 
 export default NewArticle;

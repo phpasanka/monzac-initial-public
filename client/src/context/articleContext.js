@@ -3,7 +3,7 @@ import React, { useState, createContext } from "react";
 export const ArticleContext = createContext();
 
 export const ArticleStateProvider = (props) => {
-  const [monzacState, setMonzacState] = useState(
+  const [monzacState, setMonzacState] = useState([
     {
       name: "createArticleTitle",
       value: "",
@@ -17,8 +17,12 @@ export const ArticleStateProvider = (props) => {
     {
       name: "catList",
       value: [],
-    }
-  );
+    },
+    {
+      name: "articleThumbList",
+      value: [],
+    },
+  ]);
 
   return (
     <ArticleContext.Provider value={[monzacState, setMonzacState]}>

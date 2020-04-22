@@ -10,26 +10,25 @@ class Main extends Component {
       isCreateNewArticleEnabled: false,
       articleThumbList: {
         title: "",
-        content: ""
-      }
+        content: "",
+      },
     };
     this.enableNewArticleComponent = this.enableNewArticleComponent.bind(this);
   }
   getArticleThumbList() {
     fetch("/api/thumbist")
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         let articleThumbList = res.map(
-          t => t.title,
-          t => t.content
+          (t) => t.title,
+          (t) => t.content
         );
         this.setState({ articleThumbList });
-        console.log(articleThumbList);
       });
   }
   enableNewArticleComponent() {
     this.setState({
-      isCreateNewArticleEnabled: !this.state.isCreateNewArticleEnabled
+      isCreateNewArticleEnabled: !this.state.isCreateNewArticleEnabled,
     });
   }
 

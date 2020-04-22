@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Container, Navbar, NavbarBrand, Row, Col } from "reactstrap";
 import Main from "./mainComponents/main";
 import LeftNav from "./leftnav";
-import { ArticleProvider } from "./context/articleContext";
+import { ArticleStateProvider } from "./context/ArticleContext";
 
 class App extends Component {
   render() {
     return (
-      <ArticleProvider>
+      <ArticleStateProvider>
         <React.Fragment>
           <Container fluid>
             <Navbar dark color="dark">
@@ -26,7 +26,7 @@ class App extends Component {
             </Row>
           </Container>
         </React.Fragment>
-      </ArticleProvider>
+      </ArticleStateProvider>
     );
   }
 }
