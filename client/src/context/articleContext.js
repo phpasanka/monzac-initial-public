@@ -3,25 +3,20 @@ import React, { useState, createContext } from "react";
 export const ArticleContext = createContext();
 
 export const ArticleStateProvider = (props) => {
+  // const { monzacState, setMonzacState } = useState({
+  //   createArticleTitle: "",
+  //   createArticleDescription: "",
+  //   catList: [],
+  //   articleThumbList: [],
+  //   isCreateNewArticleEnabled: true,
+  // });
   const [monzacState, setMonzacState] = useState([
-    {
-      name: "createArticleTitle",
-      value: "",
-      id: "",
-    },
-    {
-      name: "createArticleDescription",
-      value: "",
-      id: "",
-    },
-    {
-      name: "catList",
-      value: [],
-    },
-    {
-      name: "articleThumbList",
-      value: [],
-    },
+    "", //createArticleTitle ==> 0
+    "", //createArticleDescription ==> 1
+    [], //catList ==> 2
+    [], //articleThumbList ==> 3
+    false, //isCreateNewArticleEnabled ==> 4
+    "", //NewArticleContent ==> 5
   ]);
 
   return (

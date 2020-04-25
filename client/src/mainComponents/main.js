@@ -2,20 +2,20 @@ import React, { Component } from "react";
 import NewArticle from "./newArticle";
 import ArticleThumbnail from "./articleThumbnail";
 import { Button } from "reactstrap";
+import { MonzacContext } from "../context/monzacContext";
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isCreateNewArticleEnabled: false,
-      articleThumbList: {
-        title: "",
-        content: "",
-      },
-    };
-    this.enableNewArticleComponent = this.enableNewArticleComponent.bind(this);
-  }
-  getArticleThumbList() {
+  // getCategoryList = () => {
+  //   fetch("/get/category")
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       ///this.setState(catList:res.map((r)=>r.name));
+  //       setCatList(res.map((r) => r.name));
+  //       //console.log(catList);
+  //       monzacState[2] = catList;
+  //     });
+  // };
+  getArticleThumbList = () => {
     fetch("/api/thumbist")
       .then((res) => res.json())
       .then((res) => {
@@ -25,32 +25,35 @@ class Main extends Component {
         );
         this.setState({ articleThumbList });
       });
-  }
-  enableNewArticleComponent() {
-    this.setState({
-      isCreateNewArticleEnabled: !this.state.isCreateNewArticleEnabled,
-    });
-  }
+  };
 
   render() {
     return (
-      <React.Fragment>
-        <div align="right" style={{ padding: 3 }}>
-          <Button outline color="info" onClick={this.enableNewArticleComponent}>
-            Write an article
-          </Button>
-        </div>
-        {this.state.isCreateNewArticleEnabled ? (
-          <NewArticle></NewArticle>
-        ) : null}
-        <ArticleThumbnail></ArticleThumbnail>
-        <ArticleThumbnail></ArticleThumbnail>
-        <ArticleThumbnail></ArticleThumbnail>
-        <ArticleThumbnail></ArticleThumbnail>
-        <ArticleThumbnail></ArticleThumbnail>
-        <ArticleThumbnail></ArticleThumbnail>
-        <ArticleThumbnail></ArticleThumbnail>
-      </React.Fragment>
+      <MonzacContext.Consumer>
+        {(context) => (
+          <React.Fragment>
+            <div align="right" style={{ padding: 3 }}>
+              <Button
+                outline
+                color="info"
+                onClick={context.toggleIsCreateNewArticleEnabled}
+              >
+                Write an article
+              </Button>
+            </div>
+            {context.state.isCreateNewArticleEnabled ? (
+              <NewArticle></NewArticle>
+            ) : null}
+            <ArticleThumbnail></ArticleThumbnail>
+            <ArticleThumbnail></ArticleThumbnail>
+            <ArticleThumbnail></ArticleThumbnail>
+            <ArticleThumbnail></ArticleThumbnail>
+            <ArticleThumbnail></ArticleThumbnail>
+            <ArticleThumbnail></ArticleThumbnail>
+            <ArticleThumbnail></ArticleThumbnail>
+          </React.Fragment>
+        )}
+      </MonzacContext.Consumer>
     );
   }
 }
