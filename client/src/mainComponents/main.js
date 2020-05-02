@@ -5,19 +5,6 @@ import { Button } from "reactstrap";
 import { MonzacContext } from "../context/monzacContext";
 
 class Main extends Component {
-  // getArticleThumbList = () => {
-  //   fetch("/api/thumbist")
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       let articleThumbList = res.map(
-  //         (t) => t.title,
-  //         (t) => t.content
-  //       );
-  //       //this.setState({ articleThumbList });
-  //       return articleThumbList;
-  //     });
-  // };
-
   render() {
     return (
       <MonzacContext.Consumer>
@@ -38,12 +25,6 @@ class Main extends Component {
             {context.state.articleThumbList.map((value, index) => {
               return <ArticleThumbnail content={value}></ArticleThumbnail>;
             })}
-            {/* <ArticleThumbnail></ArticleThumbnail>
-            <ArticleThumbnail></ArticleThumbnail>
-            <ArticleThumbnail></ArticleThumbnail>
-            <ArticleThumbnail></ArticleThumbnail>
-            <ArticleThumbnail></ArticleThumbnail>
-            <ArticleThumbnail></ArticleThumbnail> */}
           </React.Fragment>
         )}
       </MonzacContext.Consumer>

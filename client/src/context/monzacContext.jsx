@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 export const MonzacContext = React.createContext();
-
 export class MonzacProvider extends Component {
   state = {
     createArticleTitle: "",
@@ -21,24 +19,15 @@ export class MonzacProvider extends Component {
         this.setState({ catList: catList });
       });
 
-    //getArticleThumbList = () => {
     fetch("/api/article/thumbist")
       .then((res) => res.json())
       .then((res) => {
-        let articleThumbList1 = res.map(
-          // (value, index) => {
-          //   title: value.title;
-          //   content: value.content;
-          // }
-          (t) => t.title,
-          (t) => t.content
-        );
+        let articleThumbList1 = res.map((value) => ({
+          title: value.title,
+          content: value.content,
+        }));
         this.setState({ articleThumbList: articleThumbList1 });
-        console.log(articleThumbList1);
-
-        //return articleThumbList;
       });
-    //};
   }
 
   render() {
@@ -64,7 +53,6 @@ export class MonzacProvider extends Component {
             this.setState({
               selectedArticleCategory: e.target.value,
             }),
-          //
         }}
       >
         {this.props.children}
@@ -72,4 +60,3 @@ export class MonzacProvider extends Component {
     );
   }
 }
-//

@@ -8,8 +8,8 @@ class ArticleThumbnail extends React.Component {
       <React.Fragment>
         <Card>
           <CardBody>
-            <CardTitle className="">{this.props.content}</CardTitle>
-            <CardText>{this.props.content}. </CardText>
+            <CardTitle className="">{this.props.content.title}</CardTitle>
+            <CardText>{this.props.content.content}. </CardText>
           </CardBody>
         </Card>
       </React.Fragment>
@@ -18,17 +18,3 @@ class ArticleThumbnail extends React.Component {
 }
 
 export default ArticleThumbnail;
-// const  = (props) => {
-//   return (
-//     <React.Fragment>
-//       <Card>
-//         <CardBody>
-//           <CardTitle className="">{this.props.content.title}</CardTitle>
-//           <CardText>{this.props.content.content}. </CardText>
-//         </CardBody>
-//       </Card>
-//     </React.Fragment>
-//   );
-// };
-
-// export default ArticleThumbnail;
