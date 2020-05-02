@@ -18,21 +18,28 @@ class NewArticle extends Component {
   state = {};
 
   render() {
-    const publishArticleRequest = (e) => {
+    const publishArticleRequest = (e, title, cat, content) => {
       e.preventDefault();
       let requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
-          title: "React Hooks POST Request Example",
-          category: "",
-          content: "",
+          title: title,
+          category: cat,
+          content: content,
         }),
       };
-
+      //console.log(requestOptions);
       fetch("/api/article/create", requestOptions)
         .then((res) => res.json())
-        .then((res) => {});
+        .then((res) => {
+          console.log(res);
+          if (res.insert === "done") {
+          }
+        });
     };
 
     return (
@@ -40,10 +47,19 @@ class NewArticle extends Component {
         {(context) => (
           <Row className="row">
             <Col xs="6" style={colStyle}>
-              <Input style={styles} placeholder="Title"></Input>
+              <Input
+                style={styles}
+                placeholder="Title"
+                onInput={context.updateNewArticleTitle}
+              ></Input>
             </Col>
             <Col xs="6" style={colStyle}>
-              <Input type="select" style={styles}>
+              <Input
+                type="select"
+                style={styles}
+                onChange={context.updateSelectedCategory}
+              >
+                {<option key="-1">--Select Category--</option>}
                 {context.state.catList.map((opt, i) => (
                   <option key={i}>{opt}</option>
                 ))}
@@ -52,10 +68,25 @@ class NewArticle extends Component {
             <Col xs="12" style={colStyle}>
               <ArticleEditor></ArticleEditor>
               <div align="right" style={{ marginBottom: 5 }}>
-                <Button outline color="secondary">
+                <Button
+                  outline
+                  color="secondary"
+                  onClick={context.toggleIsCreateNewArticleEnabled}
+                >
                   Discard
                 </Button>{" "}
-                <Button outline color="primary" onClick={publishArticleRequest}>
+                <Button
+                  outline
+                  color="primary"
+                  onClick={(e) => {
+                    publishArticleRequest(
+                      e,
+                      context.state.createArticleTitle,
+                      context.state.selectedArticleCategory,
+                      context.state.newArticleContent
+                    );
+                  }}
+                >
                   Post
                 </Button>
               </div>

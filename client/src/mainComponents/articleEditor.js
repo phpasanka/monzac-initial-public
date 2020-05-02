@@ -1,69 +1,24 @@
 import React, { Component } from "react";
+import ContentEditable from "react-contenteditable";
 import { MonzacContext } from "../context/monzacContext";
 
 class ArticleEditor extends Component {
-  state = {};
-
-  render() {
+  render = () => {
+    //const contentEditable = React.createRef();
     return (
       <MonzacContext.Consumer>
         {(context) => (
-          <p
+          <ContentEditable
             id="id-article-editor-content"
-            contentEditable
-            onInput={context.state.updateNewArticleContent}
-            data-placeholder="Write here...!"
-          ></p>
+            //innerRef={contentEditable}
+            html={context.state.newArticleContent} // innerHTML of the editable div
+            disabled={false} // use true to disable editing
+            onChange={context.updateNewArticleContent} // handle innerHTML change
+            //tagName="p" // Use a custom HTML tag (uses a div by default)
+          />
         )}
       </MonzacContext.Consumer>
     );
-  }
+  };
 }
-
-//class ArticleEditor extends React.Component {
-// constructor(props) {
-//   super(props);
-// }
-// shouldComponentUpdate(nextProps) {
-//   return nextProps.html !== this.nodeSelect.innerHTML;
-// }
-
-// componentDidUpdate() {
-//   if (this.props.html !== this.nodeSelect.innerHTML) {
-//     this.nodeSelect.innerHTML = this.props.html;
-//   }
-// }
-
-// emitChange = () => {
-//   let html = this.nodeSelect.innerHTML;
-//   if (this.props.onChange && html !== this.lastHtml) {
-//     this.props.onChange({
-//       target: {
-//         value: html,
-//       },
-//     });
-//   }
-//   this.lastHtml = html;
-// };
-
-//   render() {
-//     //console.log("ArticleEditor" + this.props.value);
-//     return (
-//       <p
-//         // ref={(ref) => {
-//         //   this.nodeSelect = ref;
-//         // }}
-//         id="id-article-editor-content"
-//         //onInput={this.emitChange}
-//         //onBlur={this.emitChange}
-//         contentEditable
-//         data-placeholder="Write here...!"
-//         //dangerouslySetInnerHTML={{ __html: this.props.html }}
-//       >
-//         {this.props.value}
-//       </p>
-//     );
-//   }
-// }
-
 export default ArticleEditor;

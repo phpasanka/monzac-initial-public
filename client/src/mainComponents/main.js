@@ -5,27 +5,18 @@ import { Button } from "reactstrap";
 import { MonzacContext } from "../context/monzacContext";
 
 class Main extends Component {
-  // getCategoryList = () => {
-  //   fetch("/get/category")
+  // getArticleThumbList = () => {
+  //   fetch("/api/thumbist")
   //     .then((res) => res.json())
   //     .then((res) => {
-  //       ///this.setState(catList:res.map((r)=>r.name));
-  //       setCatList(res.map((r) => r.name));
-  //       //console.log(catList);
-  //       monzacState[2] = catList;
+  //       let articleThumbList = res.map(
+  //         (t) => t.title,
+  //         (t) => t.content
+  //       );
+  //       //this.setState({ articleThumbList });
+  //       return articleThumbList;
   //     });
   // };
-  getArticleThumbList = () => {
-    fetch("/api/thumbist")
-      .then((res) => res.json())
-      .then((res) => {
-        let articleThumbList = res.map(
-          (t) => t.title,
-          (t) => t.content
-        );
-        this.setState({ articleThumbList });
-      });
-  };
 
   render() {
     return (
@@ -44,13 +35,15 @@ class Main extends Component {
             {context.state.isCreateNewArticleEnabled ? (
               <NewArticle></NewArticle>
             ) : null}
+            {context.state.articleThumbList.map((value, index) => {
+              return <ArticleThumbnail content={value}></ArticleThumbnail>;
+            })}
+            {/* <ArticleThumbnail></ArticleThumbnail>
             <ArticleThumbnail></ArticleThumbnail>
             <ArticleThumbnail></ArticleThumbnail>
             <ArticleThumbnail></ArticleThumbnail>
             <ArticleThumbnail></ArticleThumbnail>
-            <ArticleThumbnail></ArticleThumbnail>
-            <ArticleThumbnail></ArticleThumbnail>
-            <ArticleThumbnail></ArticleThumbnail>
+            <ArticleThumbnail></ArticleThumbnail> */}
           </React.Fragment>
         )}
       </MonzacContext.Consumer>
