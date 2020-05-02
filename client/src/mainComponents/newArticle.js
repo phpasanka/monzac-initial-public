@@ -1,8 +1,6 @@
-// new article creation
 import React, { Component } from "react";
 import { Row, Col, Input, Button } from "reactstrap";
 import ArticleEditor from "./articleEditor";
-//import { ArticleContext } from "../context/ArticleContext";
 import { MonzacContext } from "../context/monzacContext";
 
 const colStyle = {
@@ -32,7 +30,6 @@ class NewArticle extends Component {
           content: content,
         }),
       };
-      //console.log(requestOptions);
       fetch("/api/article/create", requestOptions)
         .then((res) => res.json())
         .then((res) => {
