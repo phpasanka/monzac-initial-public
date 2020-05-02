@@ -8,11 +8,19 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phpasanka/monzac-initial-public"
+  },
   "keywords": [
     "React"
   ],
   "author": "Pradeep Asanka",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phpasanka/monzac-initial-public/issues"
+  },
+  "homepage": "https://github.com/phpasanka/monzac-initial-public#readme",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
