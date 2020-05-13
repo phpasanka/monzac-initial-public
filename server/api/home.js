@@ -5,19 +5,20 @@ const categoryModel = require("../object_models/category");
 
 const routerHome = express.Router();
 
-routerHome.get("/get/category", function(req, res) {
-  db.selectByQuery({}, "Category", function(err, result) {
+routerHome.get("/get/category", function (req, res) {
+  db.selectByQuery({}, "Category", function (err, result) {
     if (err) return res.send("error");
+    //console.log(result);
     return res.send(result);
   });
 });
 
 //POST
-routerHome.post("/create/category", function(req, res) {
+routerHome.post("/create/category", function (req, res) {
   let body = req.body;
   let category = MakeReadyCategotyToSave(body);
   //TODO validate before insert
-  db.selectByQuery({ name: body.categoryName.trim() }, "Category", function(
+  db.selectByQuery({ name: body.categoryName.trim() }, "Category", function (
     err,
     result
   ) {

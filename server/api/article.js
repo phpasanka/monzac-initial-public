@@ -1,10 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
-
 const express = require("express");
 const db = require("../database");
 const articleModel = require("../object_models/article");
-//const uuidv1 = require("uuid/v1");
-
 const collection = "Article";
 const router = express.Router();
 
@@ -55,15 +52,18 @@ router.get("/rating/:rating", function (req, res) {
 //POST
 router.post("/create", function (req, res) {
   let body = req.body;
-  //console.log(body);
   let article = MakeReadyArticleToSave(body);
   //TODO validate before insert
-  db.insertOne(collection, article);
-  return res.send({ insert: "done" });
+  db.insertOne(collection, article, (err, result) => {
+    if (err) {
+      return res.send("error");
+    }
+    return res.send({ insert: "done" });
+  });
 });
 
 function MakeReadyArticleToSave(obj) {
-  articleModel.docId = uuidv4(); //uuidv1();
+  articleModel.docId = uuidv4();
   articleModel.title = obj.title;
   articleModel.author = "Asanka";
   articleModel.category = obj.category;
