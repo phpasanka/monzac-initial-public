@@ -36,6 +36,7 @@
     "mongodb": "^3.5.4",
     "nodemon": "^2.0.2",
     "react-contenteditable": "^3.3.4",
+    "react-responsive-modal": "^5.0.2",
     "react-select-search": "^1.0.2",
     "redux": "^4.0.5",
     "uuid": "^7.0.2"

@@ -53,9 +53,11 @@ router.get("/rating/:rating", function (req, res) {
 router.post("/create", function (req, res) {
   let body = req.body;
   let article = MakeReadyArticleToSave(body);
+  // console.log(article);
   //TODO validate before insert
   db.insertOne(collection, article, (err, result) => {
     if (err) {
+      //console.log(err);
       return res.send("error");
     }
     return res.send({ insert: "done" });
@@ -65,9 +67,9 @@ router.post("/create", function (req, res) {
 function MakeReadyArticleToSave(obj) {
   articleModel.docId = uuidv4();
   articleModel.title = obj.title;
-  articleModel.author = "Asanka";
+  articleModel.author = obj.author ? "anonymous" : obj.author;
   articleModel.category = obj.category;
-  articleModel.status = "Status";
+  articleModel.status = "active";
   articleModel.source = obj.content;
   articleModel.like = 0;
   articleModel.discussion = "Discussion";

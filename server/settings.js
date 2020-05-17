@@ -9,5 +9,9 @@ const settings = {
   output_encodig: "hex",
   keyLen: 32,
   salt: "salt",
+  dbProduction: "MonzacStore",
+  mongoUrl:
+    "mongodb+srv://admin:2uqRqFfzZW6iiODh@monzacstore-1khfz.azure.mongodb.net/test?retryWrites=true&w=majority",
 };
+
 module.exports = Object.freeze(settings);

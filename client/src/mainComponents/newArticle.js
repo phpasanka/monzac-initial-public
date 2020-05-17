@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from "react";
 import { Row, Col, Input, Button } from "reactstrap";
 import ArticleEditor from "./articleEditor";
@@ -16,7 +17,7 @@ class NewArticle extends Component {
   state = {};
 
   render() {
-    const publishArticleRequest = (e, title, cat, content) => {
+    const publishArticleRequest = (e, title, cat, content, callback) => {
       e.preventDefault();
       let requestOptions = {
         method: "POST",
@@ -33,9 +34,10 @@ class NewArticle extends Component {
       fetch("/api/article/create", requestOptions)
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
           if (res.insert === "done") {
+            return callback(null, true);
           }
+          return callback(true, null);
         });
     };
 
@@ -80,7 +82,14 @@ class NewArticle extends Component {
                       e,
                       context.state.createArticleTitle,
                       context.state.selectedArticleCategory,
-                      context.state.newArticleContent
+                      context.state.newArticleContent,
+                      (err, result) => {
+                        if (!err) {
+                          context.toggleIsCreateNewArticleEnabled();
+                        } else {
+                          console.log("error saving ");
+                        }
+                      }
                     );
                   }}
                 >

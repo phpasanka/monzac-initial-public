@@ -1,7 +1,7 @@
+const settings = require("../settings");
 const MongoClient = require("mongodb").MongoClient;
 const objectId = require("mongodb").ObjectId;
-const url =
-  "mongodb+srv://admin:2uqRqFfzZW6iiODh@monzacstore-1khfz.azure.mongodb.net/test?retryWrites=true&w=majority";
+const url = settings.mongoUrl;
 const client = new MongoClient(
   url,
   { useNewUrlParser: true },
@@ -10,11 +10,12 @@ const client = new MongoClient(
   { keepAlive: 1 }
 );
 const SSL = process.env.NODE_ENV === "production";
-const dbName = "MonzacStore";
+const dbName = settings.dbProduction;
 const options = {
   keepAlive: 1,
   useUnifiedTopology: true,
   useNewUrlParser: true,
+  forceServerObjectId: true,
 };
 class Database {
   insertOne(collection, obj, callback) {
@@ -48,27 +49,10 @@ class Database {
           if (err) {
             return callback(err, null);
           }
-          client.close();
+          db.close();
           return callback(null, res);
         });
     });
-
-    // client.connect((err) => {
-    //   if (err) {
-    //     return callback(err, null);
-    //   }
-    //   const dbo = client.db(dbName);
-    //   dbo
-    //     .collection(collection)
-    //     .find(query)
-    //     .toArray(function (err, result) {
-    //       if (err) {
-    //         return callback(err, null);
-    //       }
-    //       client.close();
-    //       return callback(null, result);
-    //     });
-    // });
   }
 }
 
