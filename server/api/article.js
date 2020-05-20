@@ -23,6 +23,15 @@ router.get("/thumbist", function (req, res) {
   return res.json([
     { title: "title test1", content: "content test 1" },
     { title: "title test2", content: "content test 2" },
+    { title: "title test2", content: "content test 2" },
+    { title: "title test2", content: "content test 2" },
+    { title: "title test2", content: "content test 2" },
+    { title: "title test2", content: "content test 2" },
+    { title: "title test2", content: "content test 2" },
+    { title: "title test2", content: "content test 2" },
+    { title: "title test2", content: "content test 2" },
+    { title: "title test2", content: "content test 2" },
+    { title: "title test2", content: "content test 2" },
   ]);
 });
 //get article by id

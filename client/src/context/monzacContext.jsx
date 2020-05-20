@@ -9,6 +9,8 @@ export class MonzacProvider extends Component {
     articleThumbList: [],
     isCreateNewArticleEnabled: false,
     newArticleContent: "",
+    showLogin: false,
+    showSignUp: false
   };
 
   componentDidMount() {
@@ -40,6 +42,7 @@ export class MonzacProvider extends Component {
               isCreateNewArticleEnabled: !this.state.isCreateNewArticleEnabled,
               newArticleContent: "",
               createArticleTitle: "",
+              showLogin: false
             }),
           updateNewArticleContent: (e) =>
             this.setState({
@@ -52,6 +55,22 @@ export class MonzacProvider extends Component {
           updateSelectedCategory: (e) =>
             this.setState({
               selectedArticleCategory: e.target.value,
+            }),
+          showLogin: () =>
+            this.setState({
+              showLogin: !this.state.showLogin,
+              newArticleContent: "",
+              createArticleTitle: "",
+              isCreateNewArticleEnabled: false,
+              showSignUp: false,
+            }),
+          showSignUp: () =>
+            this.setState({
+              showSignUp: !this.state.showSignUp,
+              newArticleContent: "",
+              createArticleTitle: "",
+              isCreateNewArticleEnabled: false,
+              showLogin: false,
             }),
         }}
       >

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import NewArticle from "./newArticle";
+import SignIn from '../user/signIn'
+import SignUp from '../user/signUp'
 import ArticleThumbnail from "./articleThumbnail";
 import { Button } from "reactstrap";
 import { MonzacContext } from "../context/monzacContext";
@@ -21,7 +23,8 @@ class Main extends Component {
             </div>
             {context.state.isCreateNewArticleEnabled ? (
               <NewArticle></NewArticle>
-            ) : null}
+            ) : context.state.showLogin ? (<SignIn></SignIn>) : context.state.showSignUp ? (<SignUp></SignUp>) : null}
+
             {context.state.articleThumbList.map((value, index) => {
               return <ArticleThumbnail content={value}></ArticleThumbnail>;
             })}

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Container, Navbar, NavbarBrand, Row, Col } from "reactstrap";
+import { Container, Navbar, NavbarBrand, Row, Col, Nav } from "reactstrap";
+import SignInButton from "./user/signInButton";
+import SignUpButton from "./user/signUpButton";
 import Main from "./mainComponents/main";
 import LeftNav from "./leftnav";
 import { MonzacProvider } from "./context/monzacContext";
@@ -12,6 +14,10 @@ class App extends Component {
           <Container fluid>
             <Navbar dark color="dark">
               <NavbarBrand href="/">MonZac</NavbarBrand>
+              <Nav className="">
+                <SignInButton />
+                <SignUpButton />
+              </Nav>
             </Navbar>
             <Row style={{ backgroundColor: "#fdfdfd" }}>
               <Col xs="auto" style={{ paddingLeft: 0, paddingRight: 0 }}>

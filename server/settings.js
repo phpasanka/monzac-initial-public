@@ -12,6 +12,7 @@ const settings = {
   dbProduction: "MonzacStore",
   mongoUrl:
     "mongodb+srv://admin:2uqRqFfzZW6iiODh@monzacstore-1khfz.azure.mongodb.net/test?retryWrites=true&w=majority",
+  secret: "erandiandsavannah",
 };
 
 module.exports = Object.freeze(settings);
