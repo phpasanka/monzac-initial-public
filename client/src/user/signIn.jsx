@@ -8,8 +8,50 @@ const loginFormstyle = {
     backgroundColor: "aliceblue",
 }
 class SignIn extends React.Component {
-    state = {}
+    state = {
+        email: "",
+        password: ""
+    }
+
+    updateEmail = (event) => {
+        const { value, name } = event.target;
+        this.setState({
+            [name]: value
+        });
+    }
+    updatePassword = (event) => {
+        const { value, name } = event.target;
+        this.setState({
+            [name]: value
+        });
+    }
+
+
     render() {
+        const onSubmit = (event, callback) => {
+            event.preventDefault();
+            fetch('/api/user/login', {
+                method: 'POST',
+                body: JSON.stringify(this.state),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                if (res.status === 200) {
+                    //console.log(res.status)
+                    alert('Access granted..!')
+                    return callback(null, res);
+                }
+                else {
+                    alert('Access denied..!')
+                    return callback(res, null);
+                }
+            })
+                .catch(err => {
+                    console.log(err);
+                    alert('Error login, plase try again...!')
+                })
+        }
         return (
             <MonzacContext.Consumer>
                 {(context) => (
@@ -18,17 +60,23 @@ class SignIn extends React.Component {
                             <Col>
                                 <Form>
                                     <FormGroup>
-                                        <Label>Username</Label>
-                                        <Input style={styles} type="text" name="username" id="frm_username" ></Input>
+                                        <Label>Email</Label>
+                                        <Input style={styles} type="email" name="email" id="frm_email" onChange={this.updateEmail}></Input>
                                     </FormGroup>
                                     <FormGroup>
                                         <Label>Password</Label>
-                                        <Input style={styles} type="password" name="password" id="frm_password"></Input>
+                                        <Input style={styles} type="password" name="password" id="frm_password" onChange={this.updatePassword}></Input>
                                     </FormGroup>
                                     <Container fluid>
                                         <Row>
                                             <Col >
-                                                <Button color="link" className="float-right">Sign In</Button>
+                                                <Button color="link" className="float-right" onClick={(event) => {
+                                                    onSubmit(event, (err, result) => {
+                                                        if (!err) {
+                                                            context.showLogin()
+                                                        }
+                                                    })
+                                                }}>Sign In</Button>
                                                 <Button color="link" className="float-right" onClick={context.showLogin}>Cancel</Button>
                                             </Col>
                                         </Row>

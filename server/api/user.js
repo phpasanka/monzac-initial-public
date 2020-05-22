@@ -25,7 +25,7 @@ routerUser.post("/login", (req, res) => {
         });
         return res.cookie('token', token, { httpOnly: true }).sendStatus(200);
       } else {
-        return res.status(200).send("not allowed");
+        return res.status(401).send("not allowed");
       }
     });
   });
