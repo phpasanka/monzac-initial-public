@@ -10,7 +10,8 @@ export class MonzacProvider extends Component {
     isCreateNewArticleEnabled: false,
     newArticleContent: "",
     showLogin: false,
-    showSignUp: false
+    showSignUp: false,
+    currentUser: ""
   };
 
   componentDidMount() {
@@ -71,6 +72,10 @@ export class MonzacProvider extends Component {
               createArticleTitle: "",
               isCreateNewArticleEnabled: false,
               showLogin: false,
+            }),
+          setCurrentUser: (user) =>
+            this.setState({
+              currentUser: user,
             }),
         }}
       >

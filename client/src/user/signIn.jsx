@@ -1,6 +1,9 @@
 import React from 'react'
 import { MonzacContext } from '../context/monzacContext'
 import { Form, FormGroup, Label, Input, Button, Container, Row, Col } from 'reactstrap';
+import SignUpButton from "./signUpButton";
+import Cookies from 'universal-cookie';
+
 const styles = {
     boxShadow: "none",
 };
@@ -25,7 +28,11 @@ class SignIn extends React.Component {
             [name]: value
         });
     }
-
+    setCookie = (user) => {
+        const cookies = new Cookies();
+        cookies.set('currentUser', user, { path: '/' });
+        // console.log(cookies.get('currentUser'));
+    }
 
     render() {
         const onSubmit = (event, callback) => {
@@ -38,13 +45,13 @@ class SignIn extends React.Component {
                 }
             }).then(res => {
                 if (res.status === 200) {
-                    //console.log(res.status)
                     alert('Access granted..!')
-                    return callback(null, res);
+                    this.setCookie(this.state.email)
+                    return callback(null, res, this.state.email);
                 }
                 else {
                     alert('Access denied..!')
-                    return callback(res, null);
+                    return callback(res, null, "");
                 }
             })
                 .catch(err => {
@@ -71,17 +78,18 @@ class SignIn extends React.Component {
                                         <Row>
                                             <Col >
                                                 <Button color="link" className="float-right" onClick={(event) => {
-                                                    onSubmit(event, (err, result) => {
+                                                    onSubmit(event, (err, result, user) => {
                                                         if (!err) {
                                                             context.showLogin()
+                                                            context.setCurrentUser(user)
                                                         }
                                                     })
                                                 }}>Sign In</Button>
                                                 <Button color="link" className="float-right" onClick={context.showLogin}>Cancel</Button>
+                                                <SignUpButton />
                                             </Col>
                                         </Row>
                                     </Container>
-
                                 </Form>
                             </Col>
                         </Row>

@@ -21,7 +21,7 @@ routerUser.post("/login", (req, res) => {
       if (bcrypt.compareSync(body.password, decryptedPass)) {
         const payload = { email };
         const token = jwt.sign(payload, config.secret, {
-          expiresIn: '1h'
+          expiresIn: config.tokenLife
         });
         return res.cookie('token', token, { httpOnly: true }).sendStatus(200);
       } else {

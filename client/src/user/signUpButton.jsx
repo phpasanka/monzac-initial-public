@@ -10,7 +10,7 @@ class SignUpButton extends React.Component {
             <MonzacContext.Consumer>
                 {(context) => (
                     <React.Fragment>
-                        <Button color="link" onClick={context.showSignUp}>Sign Up</Button>
+                        <Button color="link" onClick={context.showSignUp}>Register</Button>
                     </React.Fragment>
                 )}
             </MonzacContext.Consumer>

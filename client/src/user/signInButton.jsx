@@ -11,6 +11,8 @@ class SignInButton extends React.Component {
                 {(context) => (
                     <React.Fragment>
                         <Button color="link" onClick={context.showLogin}>Sign In</Button>
+                        {/* <Button color="link" onClick={context.showLogin}>{context.state.currentUser}</Button> */}
+
                     </React.Fragment>
                 )}
             </MonzacContext.Consumer>

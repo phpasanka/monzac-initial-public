@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Container, Navbar, NavbarBrand, Row, Col, Nav } from "reactstrap";
 import SignInButton from "./user/signInButton";
-import SignUpButton from "./user/signUpButton";
+//import SignUpButton from "./user/signUpButton";
 import Main from "./mainComponents/main";
 import LeftNav from "./leftnav";
 import { MonzacProvider } from "./context/monzacContext";
-import { Route, Switch } from 'react-router-dom';
+//import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
               <NavbarBrand href="/">MonZac</NavbarBrand>
               <Nav className="">
                 <SignInButton />
-                <SignUpButton />
+                {/* <SignUpButton /> */}
               </Nav>
             </Navbar>
             <Row style={{ backgroundColor: "#fdfdfd" }}>
@@ -32,7 +32,6 @@ class App extends Component {
               </Col>
             </Row>
           </Container>
-
         </React.Fragment>
       </MonzacProvider>
     );
