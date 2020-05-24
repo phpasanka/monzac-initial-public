@@ -13,6 +13,10 @@ export class MonzacProvider extends Component {
     showSignUp: false,
     currentUser: ""
   };
+  // validateEmail(email) {
+  //   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   return re.test(String(email).toLowerCase());
+  // }
 
   componentDidMount() {
     fetch("/get/category")
@@ -31,8 +35,15 @@ export class MonzacProvider extends Component {
         }));
         this.setState({ articleThumbList: articleThumbList1 });
       });
-  }
+    if (this.state.currentUser !== "") {
+      fetch('/api/user/validateToken')
+        .then((res) => res.json())
+        .then((res) => {
+          this.setState({ currentUser: res })
+        })
+    }
 
+  }
   render() {
     return (
       <MonzacContext.Provider
@@ -68,6 +79,14 @@ export class MonzacProvider extends Component {
           showSignUp: () =>
             this.setState({
               showSignUp: !this.state.showSignUp,
+              newArticleContent: "",
+              createArticleTitle: "",
+              isCreateNewArticleEnabled: false,
+              showLogin: false,
+            }),
+          showSignOut: () =>
+            this.setState({
+              currentUser: "",
               newArticleContent: "",
               createArticleTitle: "",
               isCreateNewArticleEnabled: false,

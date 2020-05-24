@@ -5,6 +5,7 @@ const express = require("express");
 const db = require("../database");
 const jwt = require('jsonwebtoken');
 const config = require('../settings');
+const authCheck = require('../middleware/authcheck')
 const saltRounds = 10;
 const routerUser = express.Router();
 
@@ -31,6 +32,15 @@ routerUser.post("/login", (req, res) => {
   });
 });
 
+routerUser.post("/signout", (req, res) => {
+  let email = req.email
+  const payload = { email }
+  const token = jwt.sign(payload, config.secret, {
+    expiresIn: config.logoutToken
+  });
+  return res.cookie('token', token, { httpOnly: true }).sendStatus(200);
+});
+
 routerUser.post("/insert", function (req, res) {
   //TODO: email validate (length)
   let body = req.body;
@@ -55,6 +65,10 @@ routerUser.post("/insert", function (req, res) {
       });
     });
   });
+});
+
+routerUser.get("/validateToken", authCheck, function (req, res) {
+  return res.json(req.email);
 });
 
 module.exports = routerUser;

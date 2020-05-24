@@ -26,7 +26,7 @@ class Main extends Component {
             ) : context.state.showLogin ? (<SignIn></SignIn>) : context.state.showSignUp ? (<SignUp></SignUp>) : null}
 
             {context.state.articleThumbList.map((value, index) => {
-              return <ArticleThumbnail content={value}></ArticleThumbnail>;
+              return <ArticleThumbnail key={index} content={value}></ArticleThumbnail>;
             })}
           </React.Fragment>
         )}

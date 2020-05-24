@@ -6,10 +6,13 @@ import Main from "./mainComponents/main";
 import LeftNav from "./leftnav";
 import { MonzacProvider } from "./context/monzacContext";
 //import { Route, Switch } from 'react-router-dom';
+//import { CookiesProvider } from 'react-cookie';
+
 
 class App extends Component {
   render() {
     return (
+
       <MonzacProvider>
         <React.Fragment>
           <Container fluid>
@@ -17,7 +20,6 @@ class App extends Component {
               <NavbarBrand href="/">MonZac</NavbarBrand>
               <Nav className="">
                 <SignInButton />
-                {/* <SignUpButton /> */}
               </Nav>
             </Navbar>
             <Row style={{ backgroundColor: "#fdfdfd" }}>
