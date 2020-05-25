@@ -1,9 +1,11 @@
+
 import React from 'react'
 import { MonzacContext } from '../context/monzacContext'
 import { Form, FormGroup, Label, Input, Button, Container, Row, Col } from 'reactstrap';
 import SignUpButton from "./signUpButton";
 import Cookies from 'universal-cookie';
-
+//import { NotificationContainer, NotificationManager } from 'react-notifications';
+//import 'react-notifications/lib/notifications.css';
 const styles = {
     boxShadow: "none",
 };
@@ -46,6 +48,7 @@ class SignIn extends React.Component {
             }).then(res => {
                 if (res.status === 200) {
                     alert('Access granted..!')
+                    //NotificationManager.info('Info message');
                     this.setCookie(this.state.email)
                     return callback(null, res, this.state.email);
                 }
@@ -59,10 +62,15 @@ class SignIn extends React.Component {
                     alert('Error login, plase try again...!')
                 })
         }
+        //<NotificationContainer />
         return (
+
             <MonzacContext.Consumer>
                 {(context) => (
+
                     <Container style={loginFormstyle}>
+
+
                         <Row >
                             <Col>
                                 <Form>
@@ -93,6 +101,8 @@ class SignIn extends React.Component {
                                 </Form>
                             </Col>
                         </Row>
+                        {/* <NotificationContainer /> */}
+
                     </Container>
                 )
                 }

@@ -35,13 +35,13 @@ export class MonzacProvider extends Component {
         }));
         this.setState({ articleThumbList: articleThumbList1 });
       });
-    if (this.state.currentUser !== "") {
-      fetch('/api/user/validateToken')
-        .then((res) => res.json())
-        .then((res) => {
-          this.setState({ currentUser: res })
-        })
-    }
+    //if (this.state.currentUser !== "") {
+    fetch('/api/user/validateToken')
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({ currentUser: res })
+      })
+    //}
 
   }
   render() {
