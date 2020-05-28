@@ -1,5 +1,34 @@
 import React, { Component } from "react";
 export const MonzacContext = React.createContext();
+
+const extractContent = (s) => {
+  let span = document.createElement('span');
+  span.innerHTML = s;
+  return span.textContent || span.innerText;
+}
+
+const getArticleThumbList = ((callback) => {
+  try {
+    fetch("/api/article/thumbist")
+      .then((res) => res.json())
+      .then((res) => {
+        let articleThumbList1 = res.map((value) => ({
+          title: value.title,
+          content: extractContent(value.preview),
+        }));
+        return callback(null, articleThumbList1)
+      });
+  }
+  catch (err) {
+    return callback('error', null)
+  }
+})
+
+const validateEmail = (email) => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 export class MonzacProvider extends Component {
   state = {
     createArticleTitle: "",
@@ -11,12 +40,9 @@ export class MonzacProvider extends Component {
     newArticleContent: "",
     showLogin: false,
     showSignUp: false,
-    currentUser: ""
+    currentUser: "",
+    readArticle: true
   };
-  // validateEmail(email) {
-  //   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  //   return re.test(String(email).toLowerCase());
-  // }
 
   componentDidMount() {
     fetch("/get/category")
@@ -25,16 +51,15 @@ export class MonzacProvider extends Component {
         let catList = res.map((r) => r.name);
         this.setState({ catList: catList });
       });
+    getArticleThumbList((err, result) => {
+      if (!err) {
+        this.setState({ articleThumbList: result })
+      }
+      else {
+        console.log('error raised while getting article thumblist')
+      }
+    });
 
-    fetch("/api/article/thumbist")
-      .then((res) => res.json())
-      .then((res) => {
-        let articleThumbList1 = res.map((value) => ({
-          title: value.title,
-          content: value.content,
-        }));
-        this.setState({ articleThumbList: articleThumbList1 });
-      });
     //if (this.state.currentUser !== "") {
     fetch('/api/user/validateToken')
       .then((res) => res.json())
@@ -42,8 +67,8 @@ export class MonzacProvider extends Component {
         this.setState({ currentUser: res })
       })
     //}
-
   }
+
   render() {
     return (
       <MonzacContext.Provider
@@ -55,6 +80,15 @@ export class MonzacProvider extends Component {
               newArticleContent: "",
               createArticleTitle: "",
               showLogin: false
+            }),
+          reFreshArticleThumbList: () =>
+            getArticleThumbList((err, result) => {
+              if (!err) {
+                this.setState({ articleThumbList: result })
+              }
+              else {
+                console.log('error raised while getting article thumblist')
+              }
             }),
           updateNewArticleContent: (e) =>
             this.setState({

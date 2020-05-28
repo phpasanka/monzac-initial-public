@@ -20,19 +20,28 @@ router.get("/", function (req, res) {
 //get thumbist
 router.get("/thumbist", function (req, res) {
   //TODO
-  return res.json([
-    { title: "title test1", content: "content test 1" },
-    { title: "title test2", content: "content test 2" },
-    { title: "title test2", content: "content test 2" },
-    { title: "title test2", content: "content test 2" },
-    { title: "title test2", content: "content test 2" },
-    { title: "title test2", content: "content test 2" },
-    { title: "title test2", content: "content test 2" },
-    { title: "title test2", content: "content test 2" },
-    { title: "title test2", content: "content test 2" },
-    { title: "title test2", content: "content test 2" },
-    { title: "title test2", content: "content test 2" },
-  ]);
+  db.selectMostRatedArticleThumbnails(function (err, result) {
+    if (err) {
+      console.log('error :' + err)
+      return res.json(err);
+    }
+    return res.json(result);
+
+  });
+
+  // return res.json([
+  //   { title: "title test1", content: "content test 1" },
+  //   { title: "title test2", content: "content test 2" },
+  //   { title: "title test2", content: "content test 2" },
+  //   { title: "title test2", content: "content test 2" },
+  //   { title: "title test2", content: "content test 2" },
+  //   { title: "title test2", content: "content test 2" },
+  //   { title: "title test2", content: "content test 2" },
+  //   { title: "title test2", content: "content test 2" },
+  //   { title: "title test2", content: "content test 2" },
+  //   { title: "title test2", content: "content test 2" },
+  //   { title: "title test2", content: "content test 2" },
+  // ]);
 });
 //get article by id
 router.get("/id/:id", function (req, res) {
@@ -74,17 +83,20 @@ router.post("/create", function (req, res) {
 });
 
 function MakeReadyArticleToSave(obj) {
+  // console.log(obj)
   articleModel.docId = uuidv4();
   articleModel.title = obj.title;
-  articleModel.author = obj.author ? "anonymous" : obj.author;
+  articleModel.author = obj.author === '' ? "anonymous" : obj.author;
   articleModel.category = obj.category;
   articleModel.status = "active";
   articleModel.source = obj.content;
   articleModel.like = 0;
   articleModel.discussion = "Discussion";
   articleModel.createdDate = new Date();
+  articleModel.preview = obj.content.substring(0, 200) + "...!";
   return articleModel;
 }
+
 router.post("/update", function (req, res) {
   let body = rse.body;
 });

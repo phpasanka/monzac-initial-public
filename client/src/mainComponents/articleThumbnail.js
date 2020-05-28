@@ -6,10 +6,10 @@ class ArticleThumbnail extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Card>
-          <CardBody>
+        <Card body outline color="primary">
+          <CardBody style={{ padding: 0 }}>
             <CardTitle className="">{this.props.content.title}</CardTitle>
-            <CardText>{this.props.content.content}. </CardText>
+            <CardText >{this.props.content.content}. </CardText>
           </CardBody>
         </Card>
       </React.Fragment>

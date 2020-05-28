@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NewArticle from "./newArticle";
+import ReadArticle from './articleReader'
 import SignIn from '../user/signIn'
 import SignUp from '../user/signUp'
 import ArticleThumbnail from "./articleThumbnail";
@@ -21,9 +22,22 @@ class Main extends Component {
                 Write an article
               </Button>
             </div>
-            {context.state.isCreateNewArticleEnabled ? (
-              <NewArticle></NewArticle>
-            ) : context.state.showLogin ? (<SignIn></SignIn>) : context.state.showSignUp ? (<SignUp></SignUp>) : null}
+            {
+              context.state.readArticle ?
+                (
+                  <ReadArticle></ReadArticle>
+                )
+                : context.state.isCreateNewArticleEnabled ?
+                  (
+                    <NewArticle></NewArticle>
+                  ) : context.state.showLogin ?
+                    (
+                      <SignIn></SignIn>
+                    ) : context.state.showSignUp ?
+                      (
+                        <SignUp></SignUp>
+                      ) : null
+            }
 
             {context.state.articleThumbList.map((value, index) => {
               return <ArticleThumbnail key={index} content={value}></ArticleThumbnail>;

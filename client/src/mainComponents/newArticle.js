@@ -17,7 +17,7 @@ class NewArticle extends Component {
   state = {};
 
   render() {
-    const publishArticleRequest = (e, title, cat, content, callback) => {
+    const publishArticleRequest = (e, title, cat, content, currentUser, callback) => {
       e.preventDefault();
       let requestOptions = {
         method: "POST",
@@ -29,6 +29,7 @@ class NewArticle extends Component {
           title: title,
           category: cat,
           content: content,
+          author: currentUser
         }),
       };
       fetch("/api/article/create", requestOptions)
@@ -83,9 +84,11 @@ class NewArticle extends Component {
                       context.state.createArticleTitle,
                       context.state.selectedArticleCategory,
                       context.state.newArticleContent,
+                      context.state.currentUser,
                       (err, result) => {
                         if (!err) {
                           context.toggleIsCreateNewArticleEnabled();
+                          context.reFreshArticleThumbList();
                         } else {
                           console.log("error saving ");
                         }

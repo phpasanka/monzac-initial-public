@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { Container, Navbar, NavbarBrand, Row, Col, Nav } from "reactstrap";
 import SignInButton from "./user/signInButton";
-//import SignUpButton from "./user/signUpButton";
 import Main from "./mainComponents/main";
 import LeftNav from "./leftnav";
 import { MonzacProvider } from "./context/monzacContext";
-//import { Route, Switch } from 'react-router-dom';
-//import { CookiesProvider } from 'react-cookie';
 
 
 class App extends Component {
@@ -22,7 +19,7 @@ class App extends Component {
                 <SignInButton />
               </Nav>
             </Navbar>
-            <Row style={{ backgroundColor: "#fdfdfd" }}>
+            <Row style={{ backgroundColor: "#f3f3f3" }}>
               <Col xs="auto" style={{ paddingLeft: 0, paddingRight: 0 }}>
                 <LeftNav></LeftNav>
               </Col>

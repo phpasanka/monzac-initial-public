@@ -54,6 +54,30 @@ class Database {
         });
     });
   }
+
+
+  selectMostRatedArticleThumbnails(callback) {
+    MongoClient.connect(url, options, (err, db) => {
+      if (err) {
+        return callback(err, null);
+      }
+      let query = ''
+      let collection = 'Article'
+
+      db.db(dbName)
+        .collection(collection)
+        .find({}).project({ _id: 1, docId: 1, title: 1, category: 1, preview: 1 }).sort(['_id', -1])
+        .toArray((err, res) => {
+          if (err) {
+            return callback(err, null);
+          }
+          db.close();
+          //console.log(res)
+          return callback(null, res);
+        });
+    });
+  }
 }
+
 
 module.exports = new Database();
