@@ -12,9 +12,13 @@ const getArticleThumbList = ((callback) => {
     fetch("/api/article/thumbist")
       .then((res) => res.json())
       .then((res) => {
+        //console.log(res)
+
         let articleThumbList1 = res.map((value) => ({
           title: value.title,
           content: extractContent(value.preview),
+          author: value.author,
+          docId: value.docId
         }));
         return callback(null, articleThumbList1)
       });
@@ -24,10 +28,10 @@ const getArticleThumbList = ((callback) => {
   }
 })
 
-const validateEmail = (email) => {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-}
+// const validateEmail = (email) => {
+//   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//   return re.test(String(email).toLowerCase());
+// }
 
 export class MonzacProvider extends Component {
   state = {
@@ -41,7 +45,8 @@ export class MonzacProvider extends Component {
     showLogin: false,
     showSignUp: false,
     currentUser: "",
-    readArticle: true
+    readArticle: false,
+    currentArticle: {}
   };
 
   componentDidMount() {
@@ -79,7 +84,8 @@ export class MonzacProvider extends Component {
               isCreateNewArticleEnabled: !this.state.isCreateNewArticleEnabled,
               newArticleContent: "",
               createArticleTitle: "",
-              showLogin: false
+              showLogin: false,
+              readArticle: false
             }),
           reFreshArticleThumbList: () =>
             getArticleThumbList((err, result) => {
@@ -129,6 +135,18 @@ export class MonzacProvider extends Component {
           setCurrentUser: (user) =>
             this.setState({
               currentUser: user,
+            }),
+          hideArticleReader: () =>
+            this.setState({
+              readArticle: false,
+            }),
+          toggleArticleReader: () =>
+            this.setState({
+              readArticle: !this.state.readArticle,
+            }),
+          updateCurrentArticle: (article) =>
+            this.setState({
+              currentArticle: article,
             }),
         }}
       >

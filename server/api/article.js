@@ -26,27 +26,19 @@ router.get("/thumbist", function (req, res) {
       return res.json(err);
     }
     return res.json(result);
-
   });
-
-  // return res.json([
-  //   { title: "title test1", content: "content test 1" },
-  //   { title: "title test2", content: "content test 2" },
-  //   { title: "title test2", content: "content test 2" },
-  //   { title: "title test2", content: "content test 2" },
-  //   { title: "title test2", content: "content test 2" },
-  //   { title: "title test2", content: "content test 2" },
-  //   { title: "title test2", content: "content test 2" },
-  //   { title: "title test2", content: "content test 2" },
-  //   { title: "title test2", content: "content test 2" },
-  //   { title: "title test2", content: "content test 2" },
-  //   { title: "title test2", content: "content test 2" },
-  // ]);
 });
 //get article by id
 router.get("/id/:id", function (req, res) {
   //TODO
-  return res.json(req.params.id);
+  db.selectByQuery({ docId: req.params.id }, 'Article', (err, result) => {
+    if (!err) {
+      return res.json(result)
+    }
+    else {
+      return res.json(err)
+    }
+  })
 });
 
 //get article by category

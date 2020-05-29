@@ -40,6 +40,7 @@ class Main extends Component {
             }
 
             {context.state.articleThumbList.map((value, index) => {
+              //console.log(value)
               return <ArticleThumbnail key={index} content={value}></ArticleThumbnail>;
             })}
           </React.Fragment>

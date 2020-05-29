@@ -69,3 +69,11 @@ code {
 cursor: pointer;
 background-color:honeydew;
 }
+.article-style{
+  font-size: 16px;
+}
+.article-title-style{
+  font-size: 20px;
+  font-style: oblique;
+  font-weight: 400;
+}

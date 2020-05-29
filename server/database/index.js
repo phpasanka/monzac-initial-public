@@ -66,7 +66,7 @@ class Database {
 
       db.db(dbName)
         .collection(collection)
-        .find({}).project({ _id: 1, docId: 1, title: 1, category: 1, preview: 1 }).sort(['_id', -1])
+        .find({}).project({ _id: 1, docId: 1, title: 1, category: 1, preview: 1, author: 1 }).sort(['_id', -1])
         .toArray((err, res) => {
           if (err) {
             return callback(err, null);
