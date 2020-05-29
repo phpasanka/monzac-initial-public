@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Button, Input, Col } from "reactstrap";
+import { Container, Row, Input } from "reactstrap";
 
 const titleStyle = {
     fontSize: '20px',

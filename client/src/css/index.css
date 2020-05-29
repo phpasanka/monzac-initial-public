@@ -65,3 +65,7 @@ code {
   color: darkgrey;
   cursor: pointer;
 }
+.article-thumbnail-style:hover{
+cursor: pointer;
+background-color:honeydew;
+}
