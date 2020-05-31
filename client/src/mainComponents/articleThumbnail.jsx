@@ -11,12 +11,10 @@ const authorStyle = {
 }
 const getThisArticleToRead = (event, docId, callback) => {
   event.preventDefault()
-  //console.log(docId)
   try {
     fetch('/api/article/id/' + docId)
       .then((res) => res.json())
       .then((res) => {
-        //console.log(res)
         return callback(null, res)
       })
   }

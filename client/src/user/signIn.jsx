@@ -33,7 +33,6 @@ class SignIn extends React.Component {
     setCookie = (user) => {
         const cookies = new Cookies();
         cookies.set('currentUser', user, { path: '/' });
-        // console.log(cookies.get('currentUser'));
     }
 
     render() {
@@ -48,7 +47,6 @@ class SignIn extends React.Component {
             }).then(res => {
                 if (res.status === 200) {
                     alert('Access granted..!')
-                    //NotificationManager.info('Info message');
                     this.setCookie(this.state.email)
                     return callback(null, res, this.state.email);
                 }
@@ -62,7 +60,6 @@ class SignIn extends React.Component {
                     alert('Error login, plase try again...!')
                 })
         }
-        //<NotificationContainer />
         return (
 
             <MonzacContext.Consumer>
@@ -101,8 +98,6 @@ class SignIn extends React.Component {
                                 </Form>
                             </Col>
                         </Row>
-                        {/* <NotificationContainer /> */}
-
                     </Container>
                 )
                 }

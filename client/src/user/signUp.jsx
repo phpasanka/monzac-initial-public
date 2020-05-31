@@ -65,10 +65,6 @@ class SignUp extends React.Component {
                         <Row >
                             <Col>
                                 <Form>
-                                    {/* <FormGroup>
-                                        <Label>Username</Label>
-                                        <Input style={styles} type="text" name="username" id="frm_username" ></Input>
-                                    </FormGroup> */}
                                     <FormGroup>
                                         <Label>Email</Label>
                                         <Input style={styles} type="email" name="email" id="frm_username" onChange={this.updateEmail}></Input>
