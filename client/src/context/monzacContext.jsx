@@ -1,62 +1,6 @@
 import React, { Component } from "react";
+import { GetCategories, GetArticleThumbList, TokenValidate } from '../commonFunc/helpers'
 export const MonzacContext = React.createContext();
-
-const extractContent = (s) => {
-  let span = document.createElement('span');
-  span.innerHTML = s;
-  return span.textContent || span.innerText;
-}
-
-const getCategories = ((callback) => {
-  try {
-    fetch("/get/category")
-      .then((res) => res.json())
-      .then((res) => {
-        let catList = res.map((r) => r.name);
-        return callback(null, catList)
-      });
-  } catch (error) {
-    return callback(error, null)
-  }
-})
-
-const getArticleThumbList = ((callback) => {
-  try {
-    fetch("/api/article/thumbist")
-      .then((res) => res.json())
-      .then((res) => {
-        //console.log(res)
-
-        let articleThumbList1 = res.map((value) => ({
-          title: value.title,
-          content: extractContent(value.preview),
-          author: value.author,
-          docId: value.docId
-        }));
-        return callback(null, articleThumbList1)
-      });
-  }
-  catch (err) {
-    return callback('error', null)
-  }
-})
-
-const tokenValidate = ((callback) => {
-  try {
-    fetch('/api/user/validateToken')
-      .then((res) => res.json())
-      .then((res) => {
-        return callback(null, res)
-      })
-  } catch (error) {
-    return callback(error, null)
-  }
-})
-
-// const validateEmail = (email) => {
-//   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//   return re.test(String(email).toLowerCase());
-// }
 
 export class MonzacProvider extends Component {
   state = {
@@ -75,7 +19,7 @@ export class MonzacProvider extends Component {
   };
 
   componentDidMount() {
-    getCategories((err, result) => {
+    GetCategories((err, result) => {
       if (!err) {
         this.setState({ catList: result })
       } else {
@@ -83,7 +27,7 @@ export class MonzacProvider extends Component {
       }
     })
 
-    getArticleThumbList((err, result) => {
+    GetArticleThumbList((err, result) => {
       if (!err) {
         this.setState({ articleThumbList: result })
       }
@@ -92,7 +36,7 @@ export class MonzacProvider extends Component {
       }
     });
 
-    tokenValidate((err, result) => {
+    TokenValidate((err, result) => {
       if (!err) {
         this.setState({ currentUser: result })
       } else {
@@ -115,7 +59,7 @@ export class MonzacProvider extends Component {
               readArticle: false
             }),
           reFreshArticleThumbList: () =>
-            getArticleThumbList((err, result) => {
+            GetArticleThumbList((err, result) => {
               if (!err) {
                 this.setState({ articleThumbList: result })
               }
