@@ -2,14 +2,7 @@ import React from "react";
 import { Container, Row, Input } from "reactstrap";
 import { MonzacContext } from '../context/monzacContext';
 import Parser from 'html-react-parser';
-// const titleStyle = {
-//     fontSize: '20px',
-//     fontStyle: 'oblique',
-//     fontWeight: '400'
-// }
-// const articleStyle = {
-//     fontSize: '16px'
-// }
+
 const articleReaderStyle = {
     backgroundColor: 'white',
     marginBottom: '10px',
@@ -18,7 +11,10 @@ const articleReaderStyle = {
 const styles = {
     boxShadow: "none",
 };
-
+const loadEditArticle = (e, currentArticle, callback) => {
+    e.preventDefault()
+    alert("foo")
+}
 class ArticleReader extends React.Component {
     state = {
         canEdit: false
@@ -49,7 +45,9 @@ class ArticleReader extends React.Component {
                                     <span className='emotion-style'>Share</span>
                                     {
                                         context.state.currentArticle.canEdit ?
-                                            <span className='emotion-style'>Edit</span>
+                                            <span className='emotion-style'
+                                                onClick={context.enableEditArticle}
+                                            >Edit</span>
                                             : null
                                     }
 

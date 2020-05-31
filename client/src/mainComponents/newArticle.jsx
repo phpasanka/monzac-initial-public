@@ -51,6 +51,7 @@ class NewArticle extends Component {
                 style={styles}
                 placeholder="Title"
                 onInput={context.updateNewArticleTitle}
+                value={context.state.createArticleTitle}
               ></Input>
             </Col>
             <Col xs="6" style={colStyle}>
@@ -61,7 +62,7 @@ class NewArticle extends Component {
               >
                 {<option key="-1">--Select Category--</option>}
                 {context.state.catList.map((opt, i) => (
-                  <option key={i}>{opt}</option>
+                  <option key={i} selected={context.state.selectedArticleCategory == opt}>{opt}</option>
                 ))}
               </Input>
             </Col>

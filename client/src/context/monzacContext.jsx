@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { GetCategories, GetArticleThumbList, TokenValidate } from '../commonFunc/helpers'
 export const MonzacContext = React.createContext();
 
+
 export class MonzacProvider extends Component {
   state = {
     createArticleTitle: "",
@@ -46,6 +47,17 @@ export class MonzacProvider extends Component {
   }
 
   render() {
+    const setEditArticleState = (callback) => {
+      let x = {
+        readArticle: false,
+        isCreateNewArticleEnabled: true,
+        newArticleContent: this.state.currentArticle.source,
+        createArticleTitle: this.state.currentArticle.title,
+        selectedArticleCategory: this.state.currentArticle.category,
+        createArticleDescription: "",
+      }
+      return callback(null, x, this.state.currentArticle.title, this.state.currentArticle.category)
+    }
     return (
       <MonzacContext.Provider
         value={{
@@ -118,6 +130,14 @@ export class MonzacProvider extends Component {
           updateCurrentArticle: (article) =>
             this.setState({
               currentArticle: article,
+            }),
+          enableEditArticle: () =>
+            setEditArticleState((err, result) => {
+              if (!err) {
+                this.setState(result)
+                // this.setState({ createArticleTitle: t })
+                //this.setState({ selectedArticleCategory: c })
+              }
             }),
         }}
       >
