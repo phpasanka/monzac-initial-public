@@ -1,10 +1,11 @@
 
+// extract text from a html string
 export const ExtractContent = (s) => {
     let span = document.createElement('span');
     span.innerHTML = s;
     return span.textContent || span.innerText;
 }
-
+// get available categories from database
 export const GetCategories = ((callback) => {
     try {
         fetch("/get/category")
@@ -18,6 +19,8 @@ export const GetCategories = ((callback) => {
     }
 })
 
+
+// get article titile and preview text from database to show on home page
 export const GetArticleThumbList = ((callback) => {
     try {
         fetch("/api/article/thumbist")
@@ -33,9 +36,11 @@ export const GetArticleThumbList = ((callback) => {
             });
     }
     catch (err) {
-        return callback('error', null)
+        return callback(err, null)
     }
 })
+
+// token validate request 
 export const TokenValidate = ((callback) => {
     try {
         fetch('/api/user/validateToken')
@@ -48,6 +53,8 @@ export const TokenValidate = ((callback) => {
     }
 })
 
+// email validate function 
+// we can store regex string in a separate file as we need
 export const ValidateEmail = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());

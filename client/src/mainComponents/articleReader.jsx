@@ -45,7 +45,14 @@ class ArticleReader extends React.Component {
                             </Row>
                             <Row xs="1" id="article-emotion-section" className="article-emotion-section-style">
                                 <div>
-                                    <span className='emotion-style'>Like</span><span className='emotion-style'>Share</span>
+                                    <span className='emotion-style'>Like</span>
+                                    <span className='emotion-style'>Share</span>
+                                    {
+                                        context.state.currentArticle.canEdit ?
+                                            <span className='emotion-style'>Edit</span>
+                                            : null
+                                    }
+
                                 </div>
                             </Row>
                             <Row xs="1" id="article-response-section">
