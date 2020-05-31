@@ -4,7 +4,19 @@ const db = require("../database");
 const articleModel = require("../object_models/article");
 const collection = "Article";
 const router = express.Router();
-
+const jwt = require('jsonwebtoken');
+const config = require('../settings')
+const secret = config.secret
+const getArticle = (id, callback) => {
+  db.selectByQuery({ docId: id }, 'Article', (err, result) => {
+    if (!err) {
+      return callback(null, result)
+    }
+    else {
+      return callback(err, null)
+    }
+  })
+}
 //GET
 //get all article
 router.get("/", function (req, res) {
@@ -31,15 +43,47 @@ router.get("/thumbist", function (req, res) {
 //get article by id
 router.get("/id/:id", function (req, res) {
   //TODO
-  db.selectByQuery({ docId: req.params.id }, 'Article', (err, result) => {
-    if (!err) {
-      return res.json(result)
-    }
-    else {
-      return res.json(err)
-    }
-  })
+  let response = [];
+  let canEdit = false;
+  let token = req.cookies.token;
+  try {
+    getArticle(req.params.id, (err, result) => {
+      if (!err) {
+        response = result;
+        if (token) {
+          jwt.verify(token, secret, function (err, decoded) {
+            if (!err) {
+              if (decoded.email === response[0].author) {
+                canEdit = true;
+                response[0].canEdit = canEdit;
+                return res.json(response);
+              } else {
+                response[0].canEdit = canEdit;
+                return res.json(response)
+              }
+            }
+            else {
+              response[0].canEdit = canEdit;
+              return res.json(response)
+            }
+          });
+        }
+        else {
+          response[0].canEdit = canEdit;
+          return res.json(response)
+        }
+      }
+      else {
+        return res.json(response)
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    return res.json(response)
+  }
 });
+
+
 
 //get article by category
 router.get("/category/:category", function (req, res) {
