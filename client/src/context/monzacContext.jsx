@@ -7,6 +7,19 @@ const extractContent = (s) => {
   return span.textContent || span.innerText;
 }
 
+const getCategories = ((callback) => {
+  try {
+    fetch("/get/category")
+      .then((res) => res.json())
+      .then((res) => {
+        let catList = res.map((r) => r.name);
+        return callback(null, catList)
+      });
+  } catch (error) {
+    return callback(error, null)
+  }
+})
+
 const getArticleThumbList = ((callback) => {
   try {
     fetch("/api/article/thumbist")
@@ -25,6 +38,18 @@ const getArticleThumbList = ((callback) => {
   }
   catch (err) {
     return callback('error', null)
+  }
+})
+
+const tokenValidate = ((callback) => {
+  try {
+    fetch('/api/user/validateToken')
+      .then((res) => res.json())
+      .then((res) => {
+        return callback(null, res)
+      })
+  } catch (error) {
+    return callback(error, null)
   }
 })
 
@@ -50,28 +75,30 @@ export class MonzacProvider extends Component {
   };
 
   componentDidMount() {
-    fetch("/get/category")
-      .then((res) => res.json())
-      .then((res) => {
-        let catList = res.map((r) => r.name);
-        this.setState({ catList: catList });
-      });
+    getCategories((err, result) => {
+      if (!err) {
+        this.setState({ catList: result })
+      } else {
+        console.log(err)
+      }
+    })
+
     getArticleThumbList((err, result) => {
       if (!err) {
         this.setState({ articleThumbList: result })
       }
       else {
-        console.log('error raised while getting article thumblist')
+        console.log(err)
       }
     });
 
-    //if (this.state.currentUser !== "") {
-    fetch('/api/user/validateToken')
-      .then((res) => res.json())
-      .then((res) => {
-        this.setState({ currentUser: res })
-      })
-    //}
+    tokenValidate((err, result) => {
+      if (!err) {
+        this.setState({ currentUser: result })
+      } else {
+        console.log(err)
+      }
+    })
   }
 
   render() {

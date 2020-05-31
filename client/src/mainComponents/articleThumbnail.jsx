@@ -27,7 +27,7 @@ const getThisArticleToRead = (event, docId, callback) => {
 
 class ArticleThumbnail extends React.Component {
   state = {
-    docId: ''
+    docId: '',
   };
   componentDidMount() {
     this.setState({ docId: this.props.content.docId })
@@ -40,8 +40,6 @@ class ArticleThumbnail extends React.Component {
             <Card body outline color="primary" className="article-thumbnail-style" onClick={(event) => {
               getThisArticleToRead(event, this.state.docId, (err, result) => {
                 if (!err) {
-                  //do somthing
-                  //console.log(result[0])
                   context.hideArticleReader()
                   context.updateCurrentArticle(result[0])
                   context.toggleArticleReader()

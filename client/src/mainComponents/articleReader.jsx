@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Input } from "reactstrap";
-import { MonzacContext } from '../context/monzacContext'
+import { MonzacContext } from '../context/monzacContext';
+import Parser from 'html-react-parser';
 // const titleStyle = {
 //     fontSize: '20px',
 //     fontStyle: 'oblique',
@@ -19,7 +20,9 @@ const styles = {
 };
 
 class ArticleReader extends React.Component {
-    state = {}
+    state = {
+        canEdit: false
+    }
     render() {
         return (
             <MonzacContext.Consumer>
@@ -27,23 +30,22 @@ class ArticleReader extends React.Component {
                     <React.Fragment>
                         <Container style={articleReaderStyle}>
                             <Row className='float-right'>
-                                <span className='immotion-style' onClick={context.toggleArticleReader} >X</span>
+                                <span className='emotion-style' onClick={context.toggleArticleReader} >X</span>
                             </Row>
                             <br />
                             <Row xs="1">
                                 <div>
-                                    <p className="article-title-style">{context.state.currentArticle.title}</p>
-                                    <hr></hr>
+                                    <p className="article-title-style">{Parser(context.state.currentArticle.title)}</p>
                                 </div>
                             </Row>
                             <Row xs="1">
                                 <div className="article-style">
-                                    {context.state.currentArticle.source}
+                                    {Parser(context.state.currentArticle.source)}
                                 </div>
                             </Row>
-                            <Row xs="1" id="article-immotion-section">
+                            <Row xs="1" id="article-emotion-section" className="article-emotion-section-style">
                                 <div>
-                                    <span className='immotion-style'>Like</span><span className='immotion-style'>Share</span>
+                                    <span className='emotion-style'>Like</span><span className='emotion-style'>Share</span>
                                 </div>
                             </Row>
                             <Row xs="1" id="article-response-section">
