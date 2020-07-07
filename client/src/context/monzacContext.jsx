@@ -135,8 +135,6 @@ export class MonzacProvider extends Component {
             setEditArticleState((err, result) => {
               if (!err) {
                 this.setState(result)
-                // this.setState({ createArticleTitle: t })
-                //this.setState({ selectedArticleCategory: c })
               }
             }),
         }}

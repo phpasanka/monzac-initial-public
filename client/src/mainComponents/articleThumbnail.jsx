@@ -22,7 +22,7 @@ const getThisArticleToRead = (event, docId, callback) => {
     return callback(err, null)
   }
 }
-
+//{this.setState({ docId: this.props.content.docId })}
 class ArticleThumbnail extends React.Component {
   state = {
     docId: '',

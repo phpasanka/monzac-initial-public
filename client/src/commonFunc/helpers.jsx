@@ -32,6 +32,7 @@ export const GetArticleThumbList = ((callback) => {
                     author: value.author,
                     docId: value.docId
                 }));
+                console.log(articleThumbList1)
                 return callback(null, articleThumbList1)
             });
     }
